@@ -159,6 +159,17 @@ export default function Page() {
           <h2><FaPaperclip className={styles.icon} />International Conferences</h2>
           <ul className={styles.experienceList}>
             <li>
+              <div className={styles.experienceItem}>
+                <span className={styles.period2}>2026/02</span>
+                <div>
+                  <strong>SPIE Medical Imaging 2026 @Vancouver, Canada🇨🇦</strong>
+                  <p className={styles.subText}>SPIE Medical Imaging 2026: Image Processing</p>
+                  <p>“<span style={{fontWeight: 'bold' }}><a href="https://spie.org/medical-imaging/presentation/Harmonizing-2D-and-fatsaturated-3D-FLAIR-with-contourpreserving-transfer/13925-53" target="_blank" rel="noopener noreferrer">Harmonizing 2D and fat-saturated 3D FLAIR with contour-preserving transfer</a></span>”
+                    <br/>Yuki Akiba, Kei Nishimaki, <span className={styles.author}>Takumi Ohashi</span>, Shuhei Tomoshige, Kenichi Oishi, Hitoshi Iyatomi</p>
+                </div>
+              </div>
+            </li>
+            <li>
               <div id="project1" className={styles.experienceItem}>
                 <span className={styles.period2}>2024/10</span>
                 <div>
@@ -169,7 +180,7 @@ export default function Page() {
                   <p>acceptance rate: <span style={{ color: 'red' }}>26.8</span>%</p>
                   <a href="https://dl.acm.org/doi/10.1145/3627673.3679924" target="_blank" rel="noopener noreferrer"><img alt="ACM Digital Library" src="https://img.shields.io/badge/Accepted-CIKM-0085CA.svg?logo=acm" /></a>{' '}
                   <a href="https://arxiv.org/abs/2410.09564" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.09564-b31b1b.svg" /></a>{' '}
-                  <a href="https://github.com/IyatomiLab/extended-jcm" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-REPO-181717?logo=github&logoColor=white" /></a>
+                  <a href="https://github.com/IyatomiLab/extended-jcm" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-eJCM-181717?logo=github&logoColor=white" /></a>
                 </div>
               </div>
             </li>
@@ -179,7 +190,7 @@ export default function Page() {
 
 
         <section className={styles.research}>
-          <h2><FaPaperclip className={styles.icon} />Domestic Conferences, Presentation 🇯🇵</h2>
+          <h2><FaPaperclip className={styles.icon} />Domestic Conferences & Presentation 🇯🇵</h2>
           <ul className={styles.experienceList}>
             <li>
               <div className={styles.experienceItem}>
@@ -253,7 +264,7 @@ export default function Page() {
                 </div>
               </div>
             </li>
-            <br/>
+            {/* <br/> */}
           </ul>
         </section>
 
