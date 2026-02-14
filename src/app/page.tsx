@@ -57,6 +57,17 @@ const projectCards = [
     title: 'NINJA',
     description: '日本文化知識データベースの構築',
   },
+  {
+    id: 'project3',
+    title: 'CCI',
+    description: (
+      <>
+        任意の文に対して
+        <br />
+        文化特有性を推定する尺度
+      </>
+    ),
+  },
 ] as const;
 
 const animationOptions: { value: AnimationMode; label: string }[] = [
@@ -167,6 +178,25 @@ export default function Page() {
         <section className={styles.section}>
           <h2><FaPaperclip className={styles.icon} />Domestic Conferences & Presentation 🇯🇵</h2>
           <ul className={styles.experienceList}>
+            <li>
+              <div id="project3" className={styles.experienceItem}>
+                <span className={styles.period2}>2026/03</span>
+                <div>
+                  <strong>NLP2026 @宇都宮</strong>
+                  <p className={styles.subText}>言語処理学会第32回年次大会</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>Conceptual Cultural Index: 相対的一般性に基づく文化特有性の尺度</span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>大橋巧</span>, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>日本語常識道徳データセットにおける情報欠損検出・文脈補完の自動化検証</span>”
+                    <br/><FaUser className={styles.icon} /> 伊藤達也, <span className={styles.author}>大橋巧</span>, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>Compressed-a11y: 視覚的文脈の再構成と冗長性削減による GUI エージェント観測の効率化</span>”
+                    <br/><FaUser className={styles.icon} /> 竹下理斗, 川田拓朗, <span className={styles.author}>大橋巧</span>, 北田俊輔, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                </div>
+              </div>
+            </li>
             <li>
               <div className={styles.experienceItem}>
                 <span className={styles.period2}>2025/11</span>
