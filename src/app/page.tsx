@@ -1,89 +1,82 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Head from 'next/head'; 
+import { M_PLUS_1p } from 'next/font/google';
 import styles from './page.module.css';
-import { FaEnvelope, FaGithub, FaAngleUp, FaAddressCard, FaLaptop, FaPaperclip, FaGlobe, FaLightbulb, FaGraduationCap } from 'react-icons/fa'; // アイコンをインポート
+import { FaEnvelope, FaGithub, FaAngleUp, FaAddressCard, FaLaptop, FaPaperclip, FaGlobe, FaTag, FaUser, FaGraduationCap } from 'react-icons/fa';
 import { FaGoogleScholar } from "react-icons/fa6";
 import { AiOutlineX } from "react-icons/ai";
+import Snowfall from './components/Snowfall';
+import Sakurafall from './components/Sakurafall';
+import Fireworks from './components/Fireworks';
+import Momojifall from './components/Momojifall';
 
-function Snowfall() {
-  useEffect(() => {
-    const canvas = document.getElementById('snowfall') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d');
-    if (!canvas || !ctx) return;
+type AnimationMode = 'snow' | 'sakura' | 'firework' | 'momoji';
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+function getDefaultAnimationMode(date: Date): AnimationMode {
+  const month = date.getMonth() + 1;
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const snowflakes: { x: number; y: number; r: number; d: number }[] = [];
-    const maxFlakes = 100;
-
-    for (let i = 0; i < maxFlakes; i++) {
-      snowflakes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 4 + 1,
-        d: Math.random() * maxFlakes,
-      });
-    }
-
-    const drawSnowflakes = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'white';
-      ctx.beginPath();
-      for (let i = 0; i < maxFlakes; i++) {
-        const flake = snowflakes[i];
-        ctx.moveTo(flake.x, flake.y);
-        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2, true);
-      }
-      ctx.fill();
-      updateSnowflakes();
-    };
-
-    const updateSnowflakes = () => {
-      for (let i = 0; i < maxFlakes; i++) {
-        const flake = snowflakes[i];
-        flake.y += Math.cos(flake.d) + 1 + flake.r / 2;
-        flake.x += Math.sin(flake.d);
-
-        if (flake.y > canvas.height) {
-          snowflakes[i] = { x: Math.random() * canvas.width, y: 0, r: flake.r, d: flake.d };
-        }
-      }
-    };
-
-    const animateSnowfall = () => {
-      drawSnowflakes();
-      requestAnimationFrame(animateSnowfall);
-    };
-
-    animateSnowfall();
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-    };
-  }, []);
-
-  return <canvas id="snowfall" className={styles.snowfall}></canvas>;
+  if (month >= 3 && month <= 5) return 'sakura';
+  if (month >= 6 && month <= 8) return 'firework';
+  if (month >= 9 && month <= 11) return 'momoji';
+  return 'snow';
 }
+
+const bodyFont = M_PLUS_1p({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  variable: '--font-body',
+});
+
+const headingFont = M_PLUS_1p({
+  weight: ['500', '700'],
+  subsets: ['latin'],
+  variable: '--font-heading',
+});
+
+const socialLinks = [
+  { href: 'https://github.com/tami719', label: 'GitHub', icon: FaGithub },
+  { href: 'https://x.com/tami__mila', label: 'Twitter', icon: AiOutlineX },
+  { href: 'https://scholar.google.com/citations?hl=ja&user=wYNuFFIAAAAJ', label: 'Google Scholar', icon: FaGoogleScholar },
+];
+
+const projectCards = [
+  {
+    id: 'project1',
+    title: 'eJCM',
+    description: (
+      <>
+        LLMを用いたデータ拡張手法と
+        <br />
+        日本語常識道徳データセットの拡張
+      </>
+    ),
+  },
+  {
+    id: 'project2',
+    title: 'NINJA',
+    description: '日本文化知識データベースの構築',
+  },
+] as const;
+
+const animationOptions: { value: AnimationMode; label: string }[] = [
+  { value: 'snow', label: 'Winter' },
+  { value: 'sakura', label: 'Spring' },
+  { value: 'firework', label: 'Summer' },
+  { value: 'momoji', label: 'Autumn' },
+];
+
+const seasonalBackgrounds: Record<AnimationMode, React.ReactNode> = {
+  snow: <Snowfall />,
+  sakura: <Sakurafall />,
+  firework: <Fireworks />,
+  momoji: <Momojifall />,
+};
 
 
 export default function Page() {
-  const [popupContent, setPopupContent] = useState<string | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
-
-  const handleProjectClick = (content: string) => {
-    setPopupContent(content);
-  };
-
-  const closePopup = () => {
-    setPopupContent(null);
-  };
+  const [animationMode, setAnimationMode] = useState<AnimationMode>(() => getDefaultAnimationMode(new Date()));
   
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
@@ -103,27 +96,17 @@ export default function Page() {
 
   return (
     <>
-    {/* <Head>
-      <title>Takumi Ohashi Portfolio</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="description" content="Takumi Ohashi's portfolio website." />
-    </Head> */}
-
-    <div className={styles.container}>
-      <Snowfall />
+    <div className={`${styles.container} ${bodyFont.variable} ${headingFont.variable}`}>
+      {seasonalBackgrounds[animationMode]}
       <header className={styles.header}>
         <h1 className={styles.title}>Takumi Ohashi</h1>
-        <p className={styles.subtitle}><FaEnvelope className={styles.icon} />takumi.ohashi.4g@stu.hosei.ac.jp</p>
+        <p className={styles.subtitle}><FaEnvelope className={styles.icon} />takumi.ohashi.4g@gmail.com</p>
         <div className={styles.socialLinks}>
-          <a href="https://github.com/tami719" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <FaGithub size={30} />
-          </a>
-          <a href="https://x.com/tami__mila" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-            <AiOutlineX size={30} />
-          </a>
-          <a href="https://scholar.google.com/citations?hl=ja&user=wYNuFFIAAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
-            <FaGoogleScholar size={30} />
-          </a>
+          {socialLinks.map(({ href, label, icon: Icon }) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+              <Icon size={30} />
+            </a>
+          ))}
         </div>
       </header>
       <main className={styles.main}>
@@ -131,31 +114,23 @@ export default function Page() {
         <h2><FaAddressCard className={styles.icon} />About Me</h2>
         <ul>
             <li>所属: 法政大学大学院 理工学研究科 応用情報工学専攻</li>
-            <li>学年: 修士2年 </li>
+            {/* <li>学年: 修士2年 </li> */}
             <li>研究室: 知的情報処理研究室（彌冨研）</li>
           </ul>
       </section>
       <section className={styles.projects}>
           <h2>- Research -</h2>
           <div className={styles.cardContainer}>
-            <div
-              className={styles.card}
-              onClick={() => scrollToSection('project1')}
-            >
-              <h3>MTLE / eJCM</h3>
-              <p>LLMを用いたデータ拡張手法と<br/>日本語常識道徳データセットの拡張</p>
-            </div>
-            <div
-              className={styles.card}
-              onClick={() => scrollToSection('project2')}
-            >
-              <h3>NINJA</h3>
-              <p>日本文化知識データベースの構築</p>
-            </div>
+            {projectCards.map(({ id, title, description }) => (
+              <div key={id} className={styles.card} onClick={() => scrollToSection(id)}>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        <section className={styles.research}>
+        <section className={styles.section}>
           <h2><FaPaperclip className={styles.icon} />International Conferences</h2>
           <ul className={styles.experienceList}>
             <li>
@@ -164,8 +139,8 @@ export default function Page() {
                 <div>
                   <strong>SPIE Medical Imaging 2026 @Vancouver, Canada🇨🇦</strong>
                   <p className={styles.subText}>SPIE Medical Imaging 2026: Image Processing</p>
-                  <p>“<span style={{fontWeight: 'bold' }}><a href="https://spie.org/medical-imaging/presentation/Harmonizing-2D-and-fatsaturated-3D-FLAIR-with-contourpreserving-transfer/13925-53" target="_blank" rel="noopener noreferrer">Harmonizing 2D and fat-saturated 3D FLAIR with contour-preserving transfer</a></span>”
-                    <br/>Yuki Akiba, Kei Nishimaki, <span className={styles.author}>Takumi Ohashi</span>, Shuhei Tomoshige, Kenichi Oishi, Hitoshi Iyatomi</p>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}><a href="https://spie.org/medical-imaging/presentation/Harmonizing-2D-and-fatsaturated-3D-FLAIR-with-contourpreserving-transfer/13925-53" target="_blank" rel="noopener noreferrer">Harmonizing 2D and fat-saturated 3D FLAIR with contour-preserving transfer</a></span>”
+                    <br/><FaUser className={styles.icon} /> Yuki Akiba, Kei Nishimaki, <span className={styles.author}>Takumi Ohashi</span>, Shuhei Tomoshige, Kenichi Oishi, Hitoshi Iyatomi</p>
                 </div>
               </div>
             </li>
@@ -175,8 +150,8 @@ export default function Page() {
                 <div>
                   <strong>CIKM2024 @Boise, USA🇺🇸</strong>
                   <p className={styles.subText}>The 33rd ACM International Conference on Information and Knowledge Management</p>
-                  <p>“<span style={{fontWeight: 'bold' }}><a href="https://dl.acm.org/doi/10.1145/3627673.3679924" target="_blank" rel="noopener noreferrer">Extended Japanese Commonsense Morality Dataset with Masked Token and Label Enhancement</a></span>”
-                    <br/><span className={styles.author}>Takumi Ohashi</span>, Tsubasa Nakagawa, Hitoshi Iyatomi</p>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}><a href="https://dl.acm.org/doi/10.1145/3627673.3679924" target="_blank" rel="noopener noreferrer">Extended Japanese Commonsense Morality Dataset with Masked Token and Label Enhancement</a></span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>Takumi Ohashi</span>, Tsubasa Nakagawa, Hitoshi Iyatomi</p>
                   <p>acceptance rate: <span style={{ color: 'red' }}>26.8</span>%</p>
                   <a href="https://dl.acm.org/doi/10.1145/3627673.3679924" target="_blank" rel="noopener noreferrer"><img alt="ACM Digital Library" src="https://img.shields.io/badge/Accepted-CIKM-0085CA.svg?logo=acm" /></a>{' '}
                   <a href="https://arxiv.org/abs/2410.09564" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.09564-b31b1b.svg" /></a>{' '}
@@ -189,7 +164,7 @@ export default function Page() {
         </section>
 
 
-        <section className={styles.research}>
+        <section className={styles.section}>
           <h2><FaPaperclip className={styles.icon} />Domestic Conferences & Presentation 🇯🇵</h2>
           <ul className={styles.experienceList}>
             <li>
@@ -198,10 +173,13 @@ export default function Page() {
                 <div>
                   <strong>IBIS2025 @沖縄</strong>
                   <p className={styles.subText}>第28回情報論的学習理論ワークショップ</p>
-                  <p>“<span className={styles.titleHighlight}>輪郭保持を考慮した変換による2D撮像FLAIR MRIとfat-saturation 3D撮像FLAIR MRIの調和</span>”
-                    <br/>秋葉裕貴, 西牧慧, <span className={styles.author}>大橋巧</span>, 友重秀平, 大石健一, 彌冨仁</p>
-                  <p>“<span className={styles.titleHighlight}>読後感スコアとLLMを活用した主観的文学作品検索</span>”
-                    <br/>伊藤達也, 竹下理斗, <span className={styles.author}>大橋巧</span>, 福田由紀, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>輪郭保持を考慮した変換による2D撮像FLAIR MRIとfat-saturation 3D撮像FLAIR MRIの調和</span>”
+                    <br/><FaUser className={styles.icon} /> 秋葉裕貴, 西牧慧, <span className={styles.author}>大橋巧</span>, 友重秀平, 大石健一, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>読後感スコアとLLMを活用した主観的文学作品検索</span>”
+                    <br/><FaUser className={styles.icon} /> 伊藤達也, 竹下理斗, <span className={styles.author}>大橋巧</span>, 福田由紀, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
                 </div>
               </div>
             </li>
@@ -211,8 +189,13 @@ export default function Page() {
                 <div>
                   <strong>YANS2025 @浜松</strong>
                   <p className={styles.subText}>第20回言語処理若手シンポジウム</p>
-                  <p>“<span className={styles.titleHighlight}>文化的影響を定量化する評価指標の提案</span>” <span className={styles.author}>大橋巧</span>, 彌冨仁</p>
-                  <p>“<span className={styles.titleHighlight}>ローカルLLMを用いたAIエージェントの現状と課題</span>” 竹下理斗, 川田拓朗, <span className={styles.author}>大橋巧</span>, 北田俊輔, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>文化的影響を定量化する評価指標の提案</span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>大橋巧</span>, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>ローカルLLMを用いたAIエージェントの現状と課題</span>”
+                    <br/><FaUser className={styles.icon} /> 竹下理斗, 川田拓朗, <span className={styles.author}>大橋巧</span>, 北田俊輔, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
                 </div>
               </div>
             </li>
@@ -222,7 +205,10 @@ export default function Page() {
                 <div>
                   <strong>NLP2025 @長崎</strong>
                   <p className={styles.subText}>言語処理学会第31回年次大会</p>
-                  <p>“<span style={{fontWeight: 'bold' }}><a href="https://www.anlp.jp/proceedings/annual_meeting/2025/pdf_dir/P6-18.pdf" target="_blank" rel="noopener noreferrer">LLM から抽出した日本文化知識のデータベース構築と活用</a></span>” <span className={styles.author}>大橋巧</span>, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>LLM から抽出した日本文化知識のデータベース構築と活用</span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>大橋巧</span>, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
                 </div>
               </div>
             </li>
@@ -241,7 +227,10 @@ export default function Page() {
                 <div>
                   <strong>NLP2024 @神戸</strong>
                   <p className={styles.subText}>言語処理学会第30回年次大会</p>
-                  <p>“<span style={{fontWeight: 'bold' }}><a href="https://www.anlp.jp/proceedings/annual_meeting/2024/pdf_dir/P8-5.pdf" target="_blank" rel="noopener noreferrer">ChatGPT による日本語常識道徳データセットの拡張</a></span>” <span className={styles.author}>大橋巧</span>, 中川翼, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>ChatGPT による日本語常識道徳データセットの拡張</span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>大橋巧</span>, 中川翼, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
                 </div>
               </div>
             </li>
@@ -260,18 +249,20 @@ export default function Page() {
                 <div>
                   <strong>YANS2023 @東京</strong>
                   <p className={styles.subText}>NLP若手の会第18回シンポジウム</p>
-                  <p>“<span className={styles.titleHighlight}>AIに必要な人間の一般的な道徳観の獲得</span>” <span className={styles.author}>大橋巧</span>, 中川翼, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>AIに必要な人間の一般的な道徳観の獲得</span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>大橋巧</span>, 中川翼, 彌冨仁</p>
+                  <hr className={styles.divider}></hr>
                 </div>
               </div>
             </li>
-            {/* <br/> */}
           </ul>
         </section>
 
-        <section className={styles.research}>
+        <section className={styles.section}>
           <h2><FaLaptop className={styles.icon} /> Experience</h2>
           <ul className={styles.experienceList}>
-          <li>
+           <li>
               <div className={styles.experienceItem}>
                 <span className={styles.period}>2025/03</span>
                 <div>
@@ -279,7 +270,7 @@ export default function Page() {
                   <p>Fujitsu Professional Internshipに参加し、Salesforceからのドキュメント出力を自動化するツールの機能強化に取り組んだ。【<span><a style={{color: 'red', fontWeight: 'bold' }} href="https://www.openbadge-global.com/api/v1.0/openBadge/v2/Wallet/Public/GetAssertionShare/blN5VDZxaEp6TDFldUxmQThweXNwQT09" target="_blank" rel="noopener noreferrer">open badge</a></span>】</p>
                 </div>
               </div>
-            </li>
+             </li>
             <li>
               <div className={styles.experienceItem}>
                 <span className={styles.period}>2024/09</span>
@@ -334,14 +325,14 @@ export default function Page() {
                   2023/04</span>
                 <div>
                   <strong>SIGNATE Competition</strong>
-                  <p className={styles.subText}><a href="https://signate.jp/competitions/936" target="_blank" rel="noopener noreferrer">ブルーカーボン・ダイナミクスを可視化せよ！</a></p>
+                  <p className={styles.subText}><a className={styles.link} href="https://signate.jp/competitions/936" target="_blank" rel="noopener noreferrer">ブルーカーボン・ダイナミクスを可視化せよ！</a></p>
                   <p>提供されたテーブルデータとLightGBMを用い、簡単なモデルを構築し、パラメータチューニングを行った。<br/>391人中51位で銅メダル🥉を獲得した。</p>
                 </div>
               </div>
             </li>
           </ul>
         </section>
-        <section className={styles.languages}>
+        <section className={styles.section}>
           <h2><FaGlobe className={styles.icon} />Languages & Qualifications</h2>
           <ul>
             <li>日本語（ネイティブ）</li>
@@ -351,7 +342,7 @@ export default function Page() {
           </ul>
         </section>
 
-        <section className={styles.education}>
+        <section className={styles.section}>
           <h2><FaGraduationCap className={styles.icon} />Education</h2>
           <ul>
             <li>法政大学大学院 理工学研究科 応用情報工学専攻（2026年修了見込）</li>
@@ -360,19 +351,20 @@ export default function Page() {
         </section>
       </main>
       <footer className={styles.footer}>
-        <p>&copy; 2025 Takumi Ohashi. All rights reserved.</p>
-      </footer>
-
-      {popupContent && (
-        <div className={styles.popup} onClick={closePopup}>
-          <div className={styles.popupContent}>
-            <p>{popupContent}</p>
-            <button className={styles.closeButton} onClick={closePopup}>
-              Close
+        <p>&copy; 2025-2026 Takumi Ohashi. All rights reserved.</p>
+        <div className={styles.modeSwitcher}>
+          {animationOptions.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              className={`${styles.modeButton} ${animationMode === option.value ? styles.modeButtonActive : ''}`}
+              onClick={() => setAnimationMode(option.value)}
+            >
+              {option.label}
             </button>
-          </div>
+          ))}
         </div>
-      )}
+      </footer>
 
       {showBackToTop && (
         <button
@@ -386,4 +378,3 @@ export default function Page() {
     </>
   );
 }
-
