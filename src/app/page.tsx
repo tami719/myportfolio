@@ -145,6 +145,21 @@ export default function Page() {
           <h2><FaPaperclip className={styles.icon} />International Conferences</h2>
           <ul className={styles.experienceList}>
             <li>
+              <div id="project3" className={styles.experienceItem}>
+                <span className={styles.period2}>2026/03</span>
+                <div>
+                  <strong>EACL2026 workshop @Rabat, Morocco🇲🇦</strong>
+                  <p className={styles.subText}>First Workshop on Multilingual Multicultural Evaluation</p>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>Conceptual Cultural Index: A Metric for Cultural Specificity via Relative Generality</span>”
+                    <br/><FaUser className={styles.icon} /> <span className={styles.author}>Takumi Ohashi</span>, Hitoshi Iyatomi</p>
+                  <p>
+                    <a href="https://arxiv.org/abs/2602.09444" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2602.09444-b31b1b.svg" /></a>{' '}
+                    <a href="https://github.com/IyatomiLab/CCI" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-CCI-181717?logo=github&logoColor=white" /></a>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
               <div className={styles.experienceItem}>
                 <span className={styles.period2}>2026/02</span>
                 <div>
@@ -179,7 +194,7 @@ export default function Page() {
           <h2><FaPaperclip className={styles.icon} />Domestic Conferences & Presentation 🇯🇵</h2>
           <ul className={styles.experienceList}>
             <li>
-              <div id="project3" className={styles.experienceItem}>
+              <div className={styles.experienceItem}>
                 <span className={styles.period2}>2026/03</span>
                 <div>
                   <strong>NLP2026 @宇都宮</strong>
