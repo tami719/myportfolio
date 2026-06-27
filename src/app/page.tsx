@@ -148,14 +148,14 @@ export default function Page() {
               <div id="project3" className={styles.experienceItem}>
                 <span className={styles.period2}>2026/03</span>
                 <div>
-                  <strong>EACL2026 workshop @Rabat, Morocco🇲🇦</strong>
-                  <p className={styles.subText}>First Workshop on Multilingual Multicultural Evaluation</p>
-                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}>Conceptual Cultural Index: A Metric for Cultural Specificity via Relative Generality</span>”
+                  <strong>EACL 2026 Workshop @Rabat, Morocco 🇲🇦</strong>
+                  <p className={styles.subText}>The First Workshop on Multilingual Multicultural Evaluation</p>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}><a href="https://aclanthology.org/2026.mme-main.5/" target="_blank" rel="noopener noreferrer">Conceptual Cultural Index: A Metric for Cultural Specificity via Relative Generality</a></span>”
                     <br/><FaUser className={styles.icon} /> <span className={styles.author}>Takumi Ohashi</span>, Hitoshi Iyatomi</p>
-                  <p>
-                    <a href="https://arxiv.org/abs/2602.09444" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2602.09444-b31b1b.svg" /></a>{' '}
-                    <a href="https://github.com/IyatomiLab/CCI" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-CCI-181717?logo=github&logoColor=white" /></a>
-                  </p>
+                  <p>acceptance rate: 55.6%</p>
+                  <a href="https://aclanthology.org/2026.mme-main.5/" target="_blank" rel="noopener noreferrer"><img alt="ACL Anthology" src="https://img.shields.io/badge/Accepted-EACL_MME-0085CA.svg" /></a>{' '}
+                  <a href="https://arxiv.org/abs/2602.09444" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2602.09444-b31b1b.svg?logo=arxiv&logoColor=white" /></a>{' '}
+                  <a href="https://github.com/IyatomiLab/CCI" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-CCI-181717?logo=github&logoColor=white" /></a>
                 </div>
               </div>
             </li>
@@ -163,10 +163,12 @@ export default function Page() {
               <div className={styles.experienceItem}>
                 <span className={styles.period2}>2026/02</span>
                 <div>
-                  <strong>SPIE Medical Imaging 2026 @Vancouver, Canada🇨🇦</strong>
+                  <strong>SPIE Medical Imaging 2026 @Vancouver, Canada 🇨🇦</strong>
                   <p className={styles.subText}>SPIE Medical Imaging 2026: Image Processing</p>
                   <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}><a href="https://spie.org/medical-imaging/presentation/Harmonizing-2D-and-fatsaturated-3D-FLAIR-with-contourpreserving-transfer/13925-53" target="_blank" rel="noopener noreferrer">Harmonizing 2D and fat-saturated 3D FLAIR with contour-preserving transfer</a></span>”
                     <br/><FaUser className={styles.icon} /> Yuki Akiba, Kei Nishimaki, <span className={styles.author}>Takumi Ohashi</span>, Shuhei Tomoshige, Kenichi Oishi, Hitoshi Iyatomi</p>
+                  <p></p>
+                  <a href="https://www.spiedigitallibrary.org/conference-proceedings-of-spie/13925/139251J/Harmonizing-2D-and-fatsaturated-3D-FLAIR-with-contourpreserving-transfer/10.1117/12.3085726.short" target="_blank" rel="noopener noreferrer"><img alt="SPIE" src="https://img.shields.io/badge/Accepted-SPIE-0085CA.svg" /></a>{' '}
                 </div>
               </div>
             </li>
@@ -174,13 +176,13 @@ export default function Page() {
               <div id="project1" className={styles.experienceItem}>
                 <span className={styles.period2}>2024/10</span>
                 <div>
-                  <strong>CIKM2024 @Boise, USA🇺🇸</strong>
+                  <strong>CIKM 2024 @Boise, United States 🇺🇸</strong>
                   <p className={styles.subText}>The 33rd ACM International Conference on Information and Knowledge Management</p>
                   <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}><a href="https://dl.acm.org/doi/10.1145/3627673.3679924" target="_blank" rel="noopener noreferrer">Extended Japanese Commonsense Morality Dataset with Masked Token and Label Enhancement</a></span>”
                     <br/><FaUser className={styles.icon} /> <span className={styles.author}>Takumi Ohashi</span>, Tsubasa Nakagawa, Hitoshi Iyatomi</p>
                   <p>acceptance rate: <span style={{ color: 'red' }}>26.8</span>%</p>
                   <a href="https://dl.acm.org/doi/10.1145/3627673.3679924" target="_blank" rel="noopener noreferrer"><img alt="ACM Digital Library" src="https://img.shields.io/badge/Accepted-CIKM-0085CA.svg?logo=acm" /></a>{' '}
-                  <a href="https://arxiv.org/abs/2410.09564" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.09564-b31b1b.svg" /></a>{' '}
+                  <a href="https://arxiv.org/abs/2410.09564" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.09564-b31b1b.svg?logo=arxiv&logoColor=white" /></a>{' '}
                   <a href="https://github.com/IyatomiLab/extended-jcm" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="https://img.shields.io/badge/GitHub-eJCM-181717?logo=github&logoColor=white" /></a>
                 </div>
               </div>
