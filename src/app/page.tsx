@@ -145,6 +145,20 @@ export default function Page() {
           <h2><FaPaperclip className={styles.icon} />International Conferences</h2>
           <ul className={styles.experienceList}>
             <li>
+              <div className={styles.experienceItem}>
+                <span className={styles.period2}>2026/07</span>
+                <div>
+                  <strong>ACL 2026 SRW @San Diego, United States 🇺🇸</strong>
+                  <p className={styles.subText}>The 64th Annual Meeting of the Association for Computational Linguistics: Student Research Workshop</p>
+                  <p><FaTag className={styles.icon} />“<span className={styles.titleHighlight}><a href="https://aclanthology.org/2026.acl-srw.50/" target="_blank" rel="noopener noreferrer">A11y-Compressor: A Framework for Enhancing the Efficiency of GUI Agent Observations through Visual Context Reconstruction and Redundancy Reduction</a></span>”
+                    <br/><FaUser className={styles.icon} /> Michito Takeshita, Takuro Kawada, <span className={styles.author}>Takumi Ohashi</span>, Shunsuke Kitada, Hitoshi Iyatomi</p>
+                  <p>acceptance rate: 34.7%</p>
+                  <a href="https://aclanthology.org/2026.acl-srw.50/" target="_blank" rel="noopener noreferrer"><img alt="ACL Anthology" src="https://img.shields.io/badge/Accepted-ACL_SRW-0085CA.svg" /></a>{' '}
+                  <a href="https://arxiv.org/abs/2605.00551" target="_blank" rel="noopener noreferrer"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2605.00551-b31b1b.svg?logo=arxiv&logoColor=white" /></a>{' '}
+                </div>
+              </div>
+            </li>
+            <li>
               <div id="project3" className={styles.experienceItem}>
                 <span className={styles.period2}>2026/03</span>
                 <div>
