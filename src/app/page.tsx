@@ -406,7 +406,7 @@ export default function Page() {
         <section className={styles.section}>
           <h2><FaGraduationCap className={styles.icon} />Education</h2>
           <ul>
-            <li>法政大学大学院 理工学研究科 応用情報工学専攻（2026年修了見込）</li>
+            <li>法政大学大学院 理工学研究科 応用情報工学専攻（2026年修了）</li>
             <li>法政大学 理工学部 応用情報工学科（2024年卒業）</li>
           </ul>
         </section>
